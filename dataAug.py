@@ -163,12 +163,13 @@ x_train = (x_train*(xmax-xmin)) + xmin
 x_train["Class"] = y_train
 n_gen = 100000
 
-net = net.to(device="cuda")
+net = net.to(device="cuda") #comment if no CUDA available
 
 
 sampler = Sampler(net,20)
 for i in tqdm(range(n_gen)):
-    gen_class = torch.rand(1,device = "cuda")
+    gen_class = torch.rand(1,device = "cuda") #comment if no CUDA available
+    #gen_class = torch.rand(1) #uncomment if no CUDA available
     d_gen = sampler.generateSample(gen_class)
     d_gen = (d_gen.cpu().numpy() *(xmax-xmin)) + xmin
     if gen_class < 0.5:
